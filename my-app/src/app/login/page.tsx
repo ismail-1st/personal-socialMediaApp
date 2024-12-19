@@ -1,12 +1,12 @@
-'use client'
+"use client";
 
 import { useState } from "react";
 import LabelInput from "../components/labelInput";
 
 const Page = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   console.log("On login page.");
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,10 +19,17 @@ const Page = () => {
 
   return (
     <>
-      <div className="h-[100vh] bg-white flex items-center space-between gap-10 w-full">
-        <h1 className="text-center text-white bg-black h-full flex items-center px-10">Log into your account</h1>
+      <div className="h-[100vh] bg-white flex items-center space-between w-full flex-col sm:flex-row">
+        <div className="bg-gray-800 sm:h-full h-1/2 flex items-center px-10 w-full justify-center flex-col">
+          <h1 className="text-center text-white">
+            Log into your account
+          </h1>
+          <p className="text-gray-600 text-center pb-2">
+            Enter your credentials to log into the platform
+          </p>
+        </div>
 
-        <div className="m-5">
+        <div className="p-5 sm:p-20 w-full">
           <form>
             <LabelInput
               label="Email"
@@ -42,13 +49,16 @@ const Page = () => {
               onChange={handlePasswordChange}
               placeholder="Enter your password"
               className="mb-3"
+              required
             />
-            <button
-              type="submit"
-              className="bg-black text-white px-4 py-2 rounded-md"
-            >
-              <p>Submit</p>
-            </button>
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                className="bg-gray-800 text-white px-4 py-2 rounded-md text-sm hover:bg-black "
+              >
+                <p>Submit</p>
+              </button>
+            </div>
           </form>
         </div>
       </div>
