@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import LabelInput from "../components/labelInput";
-import { handleSubmit as handleLogin } from "../shared/functions"; // Renamed the imported handleSubmit to avoid conflict
+import { handleSubmit } from "../shared/functions"; // Assuming handleSubmit is imported here
 
 const Page = () => {
+  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-
-  console.log("On login page.");
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -19,12 +18,16 @@ const Page = () => {
     setPassword(e.target.value);
   };
 
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+
   const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent default form behavior (page reload)
+    e.preventDefault();
     try {
       setLoading(true);
-      await handleLogin({ name:"", email, pass:password }); // Call the handleSubmit from shared/functions
-      console.log("Logged in successfully.");
+      await handleSubmit({ name, email, pass: password }); // Call external handleSubmit
+      console.log("Signed up successfully.");
     } catch (e) {
       console.log("An error occurred: ", e);
     } finally {
@@ -36,14 +39,22 @@ const Page = () => {
     <>
       <div className="h-[100vh] bg-white flex items-center space-between w-full flex-col sm:flex-row">
         <div className="bg-gray-800 sm:h-full h-1/2 flex items-center px-10 w-full justify-center flex-col">
-          <h1 className="text-center text-white">Log into your account</h1>
-          <p className="text-center pb-2">
-            Enter your credentials to log into the platform
-          </p>
+          <h1 className="text-center text-white">Create your account</h1>
+          <p className="text-center pb-2">Enter your credentials to signup</p>
         </div>
 
         <div className="p-5 sm:p-20 w-full">
           <form onSubmit={onSubmit}>
+            <LabelInput
+              label="Name"
+              id="name"
+              type="text"
+              value={name}
+              onChange={handleNameChange}
+              placeholder="Enter your full name"
+              required
+              className="mb-3"
+            />
             <LabelInput
               label="Email"
               id="email"
@@ -69,11 +80,10 @@ const Page = () => {
                 type="submit"
                 className="bg-gray-800 text-white px-4 py-2 rounded-md text-sm hover:bg-black"
               >
-                {loading ? <div className="loader"></div> : <p>Login</p>}
+                {loading ? <div className="loader"></div> : <p>Sign Up</p>}
               </button>
-
-              <a className="text-gray-800" href="/signup">
-                <p>Don't have an account? Click to create one!</p>
+              <a className="text-gray-800" href="/login">
+                <p>Already have an account? Click to login!</p>
               </a>
             </div>
           </form>

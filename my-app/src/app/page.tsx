@@ -1,13 +1,19 @@
 "use client";
 import { useEffect, useState } from "react";
-import { base } from "@/app/services/services";
 import {useRouter} from "next/navigation";
+import Cookies from "js-cookie";
 
 export default function Home() {
+  const [redirecting, setRedirecting] = useState(false);
 
   const router = useRouter();
   useEffect(() => {
-    router.push("/login");
+    const token = Cookies.get("token");
+
+    if (token) {
+      setRedirecting(true);
+      router.push("/login");
+    }
   }, []);
 
   // const [data, setData] = useState<any>(null);
@@ -31,14 +37,16 @@ export default function Home() {
 
   return (
     <div className="m-auto">
-      {/* {loading ? (
-        <p>Loading...</p>
+      {redirecting ? (
+              <p>
+              Redirecting...
+            </p>
       ) : (
-        <h1>{data.message}</h1>
-      )} */}
-      <p>
-        Redirecting...
-      </p>
+        <>
+          <p>Main feed page</p>
+        </>
+      )}
+
     </div>
   );
 }
