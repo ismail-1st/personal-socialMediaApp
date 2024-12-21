@@ -1,15 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import LabelInput from "../components/labelInput";
-import { handleSubmit as handleLogin } from "../shared/functions"; // Renamed the imported handleSubmit to avoid conflict
+import LabelInput from "@/app/components/labelInput";
+import { handleSubmit as handleLogin } from "@/app/shared/functions";
+import { toast } from 'react-toastify';
+import { useRouter } from "next/navigation";  
 
 const Page = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  console.log("On login page.");
+  const router = useRouter();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -23,8 +25,10 @@ const Page = () => {
     e.preventDefault(); // Prevent default form behavior (page reload)
     try {
       setLoading(true);
-      await handleLogin({ name:"", email, pass:password }); // Call the handleSubmit from shared/functions
-      console.log("Logged in successfully.");
+      await handleLogin({ name:"", email, pass:password });
+      toast.success("Logged in successfully!");
+      router.push("/");
+      // console.log("Logged in successfully.");
     } catch (e) {
       console.log("An error occurred: ", e);
     } finally {

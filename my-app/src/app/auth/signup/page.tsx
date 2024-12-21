@@ -1,14 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import LabelInput from "../components/labelInput";
-import { handleSubmit } from "../shared/functions"; // Assuming handleSubmit is imported here
+import LabelInput from "@/app/components/labelInput";
+import { handleSubmit } from "@/app/shared/functions";
+import { toast } from 'react-toastify';
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -26,8 +30,9 @@ const Page = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      await handleSubmit({ name, email, pass: password }); // Call external handleSubmit
-      console.log("Signed up successfully.");
+      await handleSubmit({ name, email, pass: password });
+      toast.success("Signed up successfully!");
+      router.push("/");
     } catch (e) {
       console.log("An error occurred: ", e);
     } finally {

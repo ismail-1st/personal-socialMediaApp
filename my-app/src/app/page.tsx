@@ -7,16 +7,6 @@ export default function Home() {
   const [redirecting, setRedirecting] = useState(false);
 
   const router = useRouter();
-  useEffect(() => {
-    const token = Cookies.get("token");
-    console.log("TOKEN IN / PAGE: ", token);
-
-    if (!token) {
-      setRedirecting(true);
-      router.push("/login");
-    }
-  }, []);
-
   // const [data, setData] = useState<any>(null);
   // const [loading, setLoading] = useState<boolean>(true);
 
