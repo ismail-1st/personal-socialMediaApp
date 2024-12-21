@@ -9,8 +9,9 @@ export default function Home() {
   const router = useRouter();
   useEffect(() => {
     const token = Cookies.get("token");
+    console.log("TOKEN IN / PAGE: ", token);
 
-    if (token) {
+    if (!token) {
       setRedirecting(true);
       router.push("/login");
     }
