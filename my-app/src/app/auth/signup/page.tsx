@@ -87,7 +87,7 @@ const Page = () => {
               >
                 {loading ? <div className="loader"></div> : <p>Sign Up</p>}
               </button>
-              <a className="text-gray-800" href="/login">
+              <a className="text-gray-800" href="/auth/login">
                 <p>Already have an account? Click to login!</p>
               </a>
             </div>

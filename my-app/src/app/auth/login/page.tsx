@@ -28,7 +28,6 @@ const Page = () => {
       await handleLogin({ name:"", email, pass:password });
       toast.success("Logged in successfully!");
       router.push("/");
-      // console.log("Logged in successfully.");
     } catch (e) {
       console.log("An error occurred: ", e);
     } finally {
@@ -76,7 +75,7 @@ const Page = () => {
                 {loading ? <div className="loader"></div> : <p>Login</p>}
               </button>
 
-              <a className="text-gray-800" href="/signup">
+              <a className="text-gray-800" href="/auth/signup">
                 <p>Don't have an account? Click to create one!</p>
               </a>
             </div>

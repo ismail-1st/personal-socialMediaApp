@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* body {
+  margin-left: 50px;
+} */
+
 .poppins-thin {
   font-family: "Poppins", serif;
   font-weight: 100;
